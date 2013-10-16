@@ -32,15 +32,22 @@ cd $WORK_DIRECTORY
 echo In work directory $WORK_DIRECTORY
 
 # Sync the sources
+#repo forall -j12 -c "git reset --hard"
 repo sync -j12 -d
 
 echo Done repo sync.
+
+#############################
+## TMP: USE CHECKOUT REPOPICK PATCH
+. build/envsetup.sh
+repopick 1357
+#############################
 
 # Prepare the build env
 . build/envsetup.sh
 
 # Pick our patch
-repopick $1
+repopick -c $1
 
 # Try to build a safe device, e.g. mako
 
