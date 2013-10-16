@@ -113,11 +113,8 @@ def _main():
                         continue
 
                     for approval in event.approvals:
-                        if approval.value > 0:
+                        if int(approval.value) > 0 and approval.category == 'Code-Review':
                             is_reviewed = True
-			if approval.value < -1:
-                            is_reviewed = False
-                            break
 
                     if is_reviewed:
                         data = {'project': event.change.project,
