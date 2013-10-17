@@ -49,6 +49,24 @@ repopick 1357
 # Pick our patch
 repopick -c $1
 
+# Test the build env
+. build/envsetup.sh >/tmp/envsetup_$1.log 2>&1
+
+if [[$? != 0]]; then
+	LOG_URL=$(curl -d private=1 -d name=OmniBot --data-urlencode text@/tmp/envsetup_$1.log http://paste.omnirom.org/api/create)
+	ssh -p $REVIEW_PORT $REVIEW_HOST gerrit review --message="'This is a message from OmniBot automated verifier. This patch breaks envsetup.sh. See $LOG_URL'" --verified=-1 $1,$2
+	exit
+fi
+
+# Test Syncing
+repo sync -j12 -d >/tmp/sync_$1.log 2>&1
+
+if [[$? != 0]]; then
+	LOG_URL=$(curl -d private=1 -d name=OmniBot --data-urlencode text@/tmp/sync_$1.log http://paste.omnirom.org/api/create)
+	ssh -p $REVIEW_PORT $REVIEW_HOST gerrit review --message="'This is a message from OmniBot automated verifier. This patch breaks syncing. See $LOG_URL'" --verified=-1 $1,$2
+	exit
+fi
+
 # Try to build a safe device, e.g. mako
 
 # TODO: Detect if it's a device-specific
