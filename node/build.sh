@@ -23,7 +23,7 @@ if [[ $# != 2 ]]; then
 fi
 
 echo =====
-echo Script starting build $1
+echo "Script starting build $1 (patch set $2)"
 echo =====
 
 # Go into the work directory
@@ -36,12 +36,6 @@ echo In work directory $WORK_DIRECTORY
 repo sync -j12 -d
 
 echo Done repo sync.
-
-#############################
-## TMP: USE CHECKOUT REPOPICK PATCH
-. build/envsetup.sh
-repopick 1357
-#############################
 
 # Prepare the build env
 . build/envsetup.sh
@@ -57,7 +51,7 @@ repopick -c $1
 # TODO: Build another device to make sure
 # it isn't breaking tablets for instance.
 rm -f /tmp/build_$1.log
-lunch custom_mako-userdebug
+lunch omni_mako-userdebug
 mka otapackage >/tmp/build_$1.log 2>&1
 
 if [[ $? == 0 ]]; then
