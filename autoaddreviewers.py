@@ -108,7 +108,7 @@ def _main():
                         continue
 
                     for approval in event.approvals:
-                        if int(approval.value) == 1 and
+                        if int(approval.value) == 1 and \
                            approval.category == 'Code-Review':
                             is_reviewed = True
 
