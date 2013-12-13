@@ -61,7 +61,7 @@ if [[$? != 0]]; then
 	exit
 fi
 
-# Try to build a safe device, e.g. mako
+# Try to build a safe device, e.g. hammerhead
 
 # TODO: Detect if it's a device-specific
 # change and build that device.
@@ -69,7 +69,7 @@ fi
 # TODO: Build another device to make sure
 # it isn't breaking tablets for instance.
 rm -f /tmp/build_$1.log
-lunch omni_mako-userdebug
+lunch omni_hammerhead-userdebug
 mka otapackage >/tmp/build_$1.log 2>&1
 
 if [[ $? == 0 ]]; then
