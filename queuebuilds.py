@@ -123,6 +123,14 @@ def _main():
                                 'revision': event.patchset.revision,
                                 'url': event.change.url}
                         r.lpush('omnibuild', json.dumps(data))
+                elif isinstance(event, ReviewerAddedEvent):
+                    if event.reviewer.email == 'omnibot@omnirom.org':
+                        data = {'project': event.change.project,
+                                'changeid': event.change.change_id,
+                                'ref': event.patchset.ref,
+                                'revision': event.patchset.revision,
+                                'url': event.change.url}
+                        r.lpush('omnibuild', json.dumps(data))
             else:
 #                logging.info("No event")
                 if not options.blocking:
