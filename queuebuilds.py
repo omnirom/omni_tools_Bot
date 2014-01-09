@@ -129,8 +129,11 @@ def _main():
                     time.sleep(1)
     except KeyboardInterrupt:
         logging.info("Terminated by user")
+    except Exception:
+        logging.error("Error during processing", exc_info=True)
+        errors.set()
     finally:
-        logging.debug("Stopping event stream...")
+        logging.warning("Stopping event stream...")
         gerrit.stop_event_stream()
 
     if errors.isSet():
