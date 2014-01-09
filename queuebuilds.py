@@ -88,14 +88,6 @@ def _main():
         logging.error("Redis error", exc_info=True)
         return 2
 
-    data = {'project': 'test',
-            'changeid': 1337,
-            'ref': 'IEEAZE',
-            'revision': 'android-4.3',
-            'url': 'http://derp/'}
-
-    r.lpush('omnibuild', json.dumps(data));
-
     errors = Event()
     try:
         while True:
