@@ -35,7 +35,7 @@ import json
 
 from pygerrit.client import GerritClient
 from pygerrit.error import GerritError
-from pygerrit.events import ErrorEvent, CommentAddedEvent
+from pygerrit.events import ErrorEvent, CommentAddedEvent, ReviewerAddedEvent
 
 
 def _main():
