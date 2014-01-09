@@ -111,6 +111,7 @@ def _main():
                     if is_reviewed:
                         data = {'project': event.change.project,
                                 'changeid': event.change.change_id,
+                                'subject': event.change.subject,
                                 'ref': event.patchset.ref,
                                 'revision': event.patchset.revision,
                                 'url': event.change.url}

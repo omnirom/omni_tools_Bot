@@ -58,7 +58,11 @@ function checkPendingBuilds() {
             rclient.lpop("omnibuild", function (err, patch) {
                 var json = JSON.parse(patch);
                 console.log(json);
-                if (json.project.indexOf("android") == 0 && json.project.indexOf("android_device") != 0) {
+                if (json.project.indexOf("android") == 0 && json.project.indexOf("android_device") != 0 &&
+                    json.subject.indexOf("1/3") < 0 && json.subject.indexOf("2/3") < 0 && json.subject.indexOf("3/3") < 0 &&
+                    json.subject.indexOf("1/4") < 0 && json.subject.indexOf("2/4") < 0 && json.subject.indexOf("3/4") < 0 && json.subject.indexOf("4/4") < 0 &&
+                    json.subject.indexOf("1/2") < 0 && json.subject.indexOf("2/2") < 0)
+                {
                     testBuild(json.ref);
                 } else {
                     console.log("Pruned patch " + json.changeid + " as it is not an android change, or a device change");

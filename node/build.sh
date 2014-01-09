@@ -40,6 +40,8 @@ echo Done repo sync.
 # Prepare the build env
 . build/envsetup.sh
 
+export USE_CCACHE=1
+
 # Pick our patch
 repopick -c $1
 
@@ -68,6 +70,7 @@ fi
 
 # TODO: Build another device to make sure
 # it isn't breaking tablets for instance.
+cd $WORK_DIRECTORY
 rm -f /tmp/build_$1.log
 lunch omni_hammerhead-userdebug
 mka otapackage >/tmp/build_$1.log 2>&1
