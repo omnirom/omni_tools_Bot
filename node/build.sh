@@ -25,6 +25,7 @@ fi
 echo =====
 echo "Script starting build $1 (patch set $2)"
 echo =====
+HERE=$(pwd)
 
 # Go into the work directory
 cd $WORK_DIRECTORY
@@ -33,7 +34,7 @@ echo In work directory $WORK_DIRECTORY
 
 # Sync the sources
 #repo forall -j12 -c "git reset --hard"
-repo sync -j12 -d
+python ${PWD}/../getomnirepos.py .repo/manifest.xml | xargs repo sync -j12 -d
 
 echo Done repo sync.
 
